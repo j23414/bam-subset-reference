@@ -1,0 +1,17 @@
+{
+  "name": "j23414/bam-subset-reference",
+  "homePage": "",
+  "repos": {
+    "https://github.com/nf-core/modules.git": {
+      "modules": {
+        "nf-core": {
+          "bwamem2/index": {
+            "branch": "master",
+            "git_sha": "8327445b5266b0df32212e5c27407546d100429f",
+            "installed_by": ["modules"]
+          }
+        }
+      }
+    }
+  }
+}
