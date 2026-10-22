@@ -9,6 +9,21 @@
             "branch": "master",
             "git_sha": "8327445b5266b0df32212e5c27407546d100429f",
             "installed_by": ["modules"]
+          },
+          "samtools/sort": {
+            "branch": "master",
+            "git_sha": "5f344f0e41fdfaf2506f89400e42a2689d6ab323",
+            "installed_by": ["modules"]
+          },
+          "samtools/view": {
+            "branch": "master",
+            "git_sha": "5f344f0e41fdfaf2506f89400e42a2689d6ab323",
+            "installed_by": ["modules"]
+          },
+          "seqkit/grep": {
+            "branch": "master",
+            "git_sha": "8fff8cfa10626a5acb7652f2212dec0cbc18b47e",
+            "installed_by": ["modules"]
           }
         }
       }
