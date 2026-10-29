@@ -8,18 +8,13 @@ process SAMTOOLS_SUBSET {
         : 'community.wave.seqera.io/library/htslib_samtools:1.23.1--5b6bb4ede7e612e5'}"
 
     input: tuple val(meta), file(bam), val(references)
-    output: tuple val(meta), file("${bam.baseName}_subset.bam"), val(references), file("${bam.baseName}_script.sh")
+    output: tuple val(meta), file("${bam.baseName}_subset.bam"), val(references)
     script:
     def reference_names = references.split(';').collect { reference -> "'${reference}'" }.join(' ')
     """
-    # sort
-    # index
-    # filter
-    # sort
-    # index
-
-    echo "samtools view -b -o ${bam.baseName}_subset.bam ${bam} ${reference_names}" > ${bam.baseName}_script.sh
-    touch ${bam.baseName}_subset.bam
+    samtools sort -o ${bam.baseName}_sorted.bam ${bam}
+    samtools index ${bam.baseName}_sorted.bam
+    samtools view -b -o ${bam.baseName}_subset.bam ${bam.baseName}_sorted.bam ${reference_names}
     """
 }
 
@@ -37,10 +32,10 @@ workflow {
         error "Please specify --samplesheet samplesheet.csv"
     }
 
-    SAMTOOLS_SUBSET(bam_ch) | view
+    SAMTOOLS_SUBSET(bam_ch) // | view
 
     SAMTOOLS_SUBSET.out
-    .map {meta, bam, references, _script -> "${meta.id},subset_bam/${bam.fileName},${references}"}
+    .map {meta, bam, references -> "${meta.id},subset_bam/${bam.fileName},${references}"}
     .collectFile(
         name: "${params.outdir}/processed_samplesheet.csv",
         seed: "sample,bam,references",
