@@ -14,7 +14,8 @@ process SAMTOOLS_SUBSET {
     """
     samtools sort -o ${bam.baseName}_sorted.bam ${bam}
     samtools index ${bam.baseName}_sorted.bam
-    samtools view -b -o ${bam.baseName}_subset.bam ${bam.baseName}_sorted.bam ${reference_names}
+    samtools view -b -o ${bam.baseName}_temp.bam ${bam.baseName}_sorted.bam ${reference_names}
+    samtools sort -o ${bam.baseName}_subset.bam ${bam.baseName}_temp.bam
     """
 }
 
